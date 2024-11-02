@@ -1,0 +1,162 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    max-width: 80%;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .modal-label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .modal-input,
+  .dropdown-input,
+  .checklist-input {
+    width: 95%;
+    border: 1px solid #E2E2E2;
+    color: black;
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .priority-options {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .priority-button {
+    border-radius: 8px;
+    padding: 0.15rem 0.5rem;
+    cursor: pointer;
+    border: 1px solid #E2E2E2;
+    color: #767575;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .priority-button.selected {
+    background-color: #EEECEC;
+  }
+  
+  .priority-indicator.high { background-color: #FF2473; }
+  .priority-indicator.moderate { background-color: #18B0FF; }
+  .priority-indicator.low { background-color: #63C05B; }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #7E7A7A14;
+    border-radius: 4px;
+    z-index: 1000;
+  }
+  
+  .dropdown-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .assign-button {
+    border: 1px solid #E2E2E2;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .custom-checkbox {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #E2E2E2;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox.checked {
+    background-color: #17A2B8;
+  }
+  
+  .add-task {
+    cursor: pointer;
+    color: #17A2B8;
+    border: none;
+    background: none;
+    font-size: 14px;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  
+  .date-picker,
+  .cancel-button,
+  .save-button {
+    padding: 0.5rem 0;
+    border-radius: 8px;
+    width: 162px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .date-picker {
+    text-align: center;
+    border: 1px solid #E2E2E2;
+  }
+  
+  .cancel-button {
+    background-color: transparent;
+    color: #CF3636;
+    border: 1px solid #CF3636;
+  }
+  
+  .save-button {
+    background-color: #17A2B8;
+    color: white;
+    border: none;
+  }
+  
