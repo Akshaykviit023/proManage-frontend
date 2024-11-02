@@ -161,7 +161,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
                         {formatDate(cardDetails.dueDate)}
                     </div>
                 )}
-                <div>
+                <div className='category-list'>
                     {filteredCategories.map((category, index) => (
                         <div key={index} className="category-button" onClick={() => handleChangeCategory(category, cardDetails._id)}>
                             {category.toUpperCase()}
