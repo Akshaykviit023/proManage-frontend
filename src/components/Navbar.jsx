@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SmallModal from './SmallModal';
+import ConfirmModal from './ConfirmModal';
 import { useNavigate } from "react-router-dom";
 import '../styles/Navbar.css'; // Import the CSS file
 
@@ -65,7 +65,7 @@ const Navbar = ({ setActiveComponent, activeComponent }) => {
       </div>
 
       {showDeleteModal && (
-        <SmallModal
+        <ConfirmModal
           show={showDeleteModal}
           onClose={() => setShowDeleteModal(false)}
           onConfirm={confirmLogout}

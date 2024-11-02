@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { formatDate } from '../utils/formatDate';
 import { changeCategory, deleteCard, updateChecklistItemStatus } from '../services/task';
 import Modal from './Modal';
-import SmallModal from './SmallModal';
+import ConfirmModal from './ConfirmModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/Dashboard.css';
@@ -177,7 +177,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
                 />
             )}
             {showDeleteModal && (
-                <SmallModal
+                <ConfirmModal
                     show={showDeleteModal}
                     onClose={() => setShowDeleteModal(false)}
                     initialData={cardDetails}
