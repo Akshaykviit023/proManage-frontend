@@ -35,7 +35,6 @@ const Auth = () => {
                 const response = await login({ email, password });
                 if (response.status === 200) {
                     navigate('/dashboard');
-                    alert('User logged in successfully');
                 }
             } else {
                 if (!userData.name || !userData.email || !userData.password || !userData.confirmPassword) return;
@@ -43,7 +42,6 @@ const Auth = () => {
                 const response = await register({ name, email, password, confirmPassword });
                 if (response.status === 201) {
                     navigate('/dashboard');
-                    alert('User created successfully');
                 }
             }
         } catch (error) {
