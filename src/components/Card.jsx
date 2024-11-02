@@ -120,7 +120,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
 
       const handleShareClick = (cardId) => {
         setShowOptions(false);
-        navigator.clipboard.writeText(`http://localhost:5173/cards/${cardId}`);
+        navigator.clipboard.writeText(`https://promanage-pink.vercel.app/cards/${cardId}`);
         toast.success("Link Copied", {
             className: 'custom-toast',
             position: "top-right",
