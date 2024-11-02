@@ -9,15 +9,17 @@ const Board = () => {
     const [currentDate, setCurrentDate] = useState("");
     const [cards, setCards] = useState([]);
     const [filter, setFilter] = useState("This week");
+    const [loading, setLoading] = useState(true); // New loading state
 
     const fetchCardDetails = async (filter) => {
+        setLoading(true); // Set loading to true before fetch
         try {
-            // Adjust fetchCards API call according to filter
-            const response = await fetchCards({ filter }); // Pass the filter as a parameter
+            const response = await fetchCards({ filter });
             setCards(response);
-            console.log(response);
         } catch (error) {
             console.error("Error fetching card details:", error);
+        } finally {
+            setLoading(false); // Set loading to false after fetch
         }
     }
 
@@ -40,6 +42,30 @@ const Board = () => {
 
     return (
         <div style={{ maxWidth: "90%", height: "100vh", boxSizing: "border-box", overflow: "hidden" }}>
+            {loading && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 1000,
+                }}>
+                    <div className="spinner" style={{
+                        width: '50px',
+                        height: '50px',
+                        border: '6px solid #ddd',
+                        borderTop: '6px solid #17A2B8',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite',
+                    }}></div>
+                </div>
+            )}
+            
             <div style={{ padding: "0.25rem 1.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h2 style={{ fontSize: "22px", fontWeight: 600 }}>
