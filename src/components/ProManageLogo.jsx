@@ -12,8 +12,7 @@ const ProManageLogo = () => {
         fontWeight: 700,
         gap: '0.75rem',
     }}>
-        <img src="../../public/proManage_logo.svg" alt="proManage" height={24} width={24} />
-        Pro Manage
+        <img src="proManage_logo.svg" alt="" height={24} width={24} />Pro Manage
     </div>
   )
 }
