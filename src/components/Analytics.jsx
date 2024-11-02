@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getSummary } from '../services/task';
+import Loader from './Loader';
 
 const Analytics = () => {
   const [analytics, setAnalytics] = useState({});
+  const [loading, setLoading] = useState(true); 
 
   const style = {
     analyticsContainer: {
@@ -29,13 +31,18 @@ const Analytics = () => {
 
   useEffect(() => {
     const fetchSummary = async () => {
+      setLoading(true); 
       try {
+        
         const response = await getSummary();
         console.log(response);
         setAnalytics(response);
       } catch (error) {
         console.error("Failed to fetch analytics summary:", error);
       }
+      finally {
+        setLoading(false);
+    }
     };
 
     fetchSummary();
@@ -57,6 +64,7 @@ const Analytics = () => {
 
   return (
     <div style={{ padding: '1rem 2.5rem' }}>
+      {loading && <Loader />}
       <h1 style={{ fontSize: '22px', fontWeight: 600 }}>Analytics</h1>
       {analytics && analytics.statusCounts && (
         <div style={{ display: 'flex', gap: '1rem' }}>

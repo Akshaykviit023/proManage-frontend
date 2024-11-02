@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputField from './InputField.jsx';
 import Button from './Button.jsx';
 import { updateUser } from '../services/auth.js';
+import Loader from './Loader.jsx';
 
 const PersonalInfo = () => {
   const [userData, setUserData] = useState({
@@ -13,6 +14,7 @@ const PersonalInfo = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     setUserData({
@@ -25,7 +27,7 @@ const PersonalInfo = () => {
     e.preventDefault(); // Prevent default form submission
     setErrorMessage(""); // Reset error message
     setSuccessMessage(""); // Reset success message
-
+    setLoading(true)
     try {
       const response = await updateUser(userData);
       if (response.status === 200) {
@@ -37,10 +39,14 @@ const PersonalInfo = () => {
       console.error("Error updating user information:", error);
       setErrorMessage("Failed to update user information. Please try again.");
     }
+    finally{
+      setLoading(false)
+    }
   };
 
   return (
     <div>
+      {loading && <Loader />}
       <h1>Settings</h1>
 
       <form onSubmit={updateInfo}>

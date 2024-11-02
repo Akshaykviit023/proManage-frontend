@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createCard, setTask, updateCard } from '../services/task';
+import Loader from './Loader';
 const Modal = ({ show, onClose, initialData }) => {
     const [taskTitle, setTaskTitle] = useState(initialData?.title || ''); // Prefill title from initialData
   const [priority, setPriority] = useState(initialData?.priority || '');
@@ -7,13 +8,22 @@ const Modal = ({ show, onClose, initialData }) => {
   const [checklist, setChecklist] = useState(initialData?.checklist || []);
   const [dueDate, setDueDate] = useState(initialData?.dueDate || ''); // New state for date
   const [users, setUsers] = useState([]); // State to store users from MongoDB
-  const [selectedUser, setSelectedUser] = useState(null); // State for selected user
+  const [loading, setLoading] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
-        if (show){
-            setTask().then((fetchedUsers) => setUsers(fetchedUsers));
-        } 
+        setLoading(true)
+        try {
+            if (show){
+                setTask().then((fetchedUsers) => setUsers(fetchedUsers));
+            } 
+        } catch (error) {
+            console.log(error)
+        }
+        finally{
+            setLoading(false)
+        }
+        
     }, [show]);
 
 
@@ -133,14 +143,25 @@ const Modal = ({ show, onClose, initialData }) => {
             checklist, // This is an array of tasks
             dueDate
         };
-        
-        if (initialData) {
-            const response = await updateCard(initialData._id, cardData); // Update card using ID from initialData
-            console.log(response);
-        } else {
-            const response = await createCard({ cardData }); // Create new card if no initialData
-            console.log(response);
+
+        setLoading(true)
+
+        try {
+            if (initialData) {
+                const response = await updateCard(initialData._id, cardData); // Update card using ID from initialData
+                console.log(response);
+            } else {
+                const response = await createCard({ cardData }); // Create new card if no initialData
+                console.log(response);
+            }
+        } catch (error) {
+            console.log(error);
         }
+        finally{
+            setLoading(false)
+        }
+        
+        
         // Reset form values
         setTaskTitle('');
         setPriority('');
@@ -161,6 +182,7 @@ const Modal = ({ show, onClose, initialData }) => {
 
     return (
         <div style={modalStyles.overlay}>
+            {loading && <Loader />}
             <div style={modalStyles.modal}>
                 
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: '1.25rem'}}>

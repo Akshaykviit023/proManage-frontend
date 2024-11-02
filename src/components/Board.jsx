@@ -3,23 +3,24 @@ import { formatDate } from '../utils/currentTime';
 import Dropdown from './Dropdown';
 import Category from './Category';
 import { fetchCards } from '../services/task';
+import Loader from './Loader';
 
 const Board = () => {
     const [userName, setUserName] = useState("");
     const [currentDate, setCurrentDate] = useState("");
     const [cards, setCards] = useState([]);
     const [filter, setFilter] = useState("This week");
-    const [loading, setLoading] = useState(true); // New loading state
+    const [loading, setLoading] = useState(true); 
 
     const fetchCardDetails = async (filter) => {
-        setLoading(true); // Set loading to true before fetch
+        setLoading(true); 
         try {
             const response = await fetchCards({ filter });
             setCards(response);
         } catch (error) {
             console.error("Error fetching card details:", error);
         } finally {
-            setLoading(false); // Set loading to false after fetch
+            setLoading(false);
         }
     }
 
@@ -43,29 +44,9 @@ const Board = () => {
     return (
         <div style={{ maxWidth: "90%", height: "100vh", boxSizing: "border-box", overflow: "hidden" }}>
             {loading && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100vw',
-                    height: '100vh',
-                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: 1000,
-                }}>
-                    <div className="spinner" style={{
-                        width: '50px',
-                        height: '50px',
-                        border: '6px solid #ddd',
-                        borderTop: '6px solid #17A2B8',
-                        borderRadius: '50%',
-                        animation: 'spin 1s linear infinite',
-                    }}></div>
-                </div>
+                <Loader />
             )}
-            
+
             <div style={{ padding: "0.25rem 1.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h2 style={{ fontSize: "22px", fontWeight: 600 }}>

@@ -6,6 +6,7 @@ import SmallModal from './SmallModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/Dashboard.css'
+import Loader from './Loader';
 
 
 const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) => {
@@ -16,6 +17,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
     const [showOptions, setShowOptions] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false); 
     const [showDeleteModal, setShowDeleteModal] = useState(false); 
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -68,6 +70,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
     const selectedCount = checklist.filter((item) => item.completed).length;
 
     const handleCheckboxChange = async (id, completed) => {
+        setLoading(true);
         try {
             // Call the backend API to update the checklist item status
             await updateChecklistItemStatus(cardDetails._id, id, !completed);
@@ -82,9 +85,13 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
             console.error("Error updating checklist item:", error);
             alert("Failed to update checklist item.");
         }
+        finally {
+            setLoading(false)
+        }
     };
 
     const handleChangeCategory = async (category, cardId) => {
+        setLoading(true)
         try {
             const response = await changeCategory(category, cardId);
             console.log("Category changed successfully:", response);
@@ -92,7 +99,9 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
             console.error("Error changing category:", error.message);
             alert("Failed to change category.");
         }
-        
+        finally {
+            setLoading(false)
+        }
     }
 
     const handleOptionClick = () => {
@@ -105,12 +114,16 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
     };
 
     const confirmDelete = async (cardId) => {
+        setLoading(true);
         try {
             const response = await deleteCard(cardId); 
             console.log("Card deleted:", response);
             setShowDeleteModal(false); // Close delete modal after deletion
         } catch (error) {
             console.error("Error deleting card:", error);
+        }
+        finally{
+            setLoading(false)
         }
     };
     const handleEditClick = () => {
@@ -137,6 +150,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
 
     return (
         <div style={{ backgroundColor: "white", borderRadius: '20px', padding: '1.5rem', marginBottom: '1.5rem' }}>
+            {loading && <Loader />}
             <div style={{ 
                 display: 'flex',
                 justifyContent: 'space-between',
