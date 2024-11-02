@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { fetchPublicCard } from '../services/task';
 import { formatDate } from '../utils/formatDate';
 import ProManageLogo from '../components/ProManageLogo';
-import '../styles/ViewCard.css'
+import '../styles/ViewCard.css';
+
 const ViewCard = () => {
     const { id } = useParams();
     const [cardDetails, setCardDetails] = useState(null);
@@ -35,30 +36,30 @@ const ViewCard = () => {
     }, []);
 
     return (
-        <div className="container">
+        <div className="vc-container">
             <ProManageLogo />
 
             {cardDetails && (
-                <div className="card-wrapper">
-                    <div className="card-container">
-                        <div className="priority-indicator">
+                <div className="vc-card-wrapper">
+                    <div className="vc-card-container">
+                        <div className="vc-priority-indicator">
                             <div
-                                className="priority-dot"
+                                className="vc-priority-dot"
                                 style={{ backgroundColor: priorityColor(cardDetails.priority) }}
                             />
                             {cardDetails.priority.toUpperCase()} PRIORITY
                         </div>
-                        <div className="card-title">{cardDetails.title}</div>
+                        <div className="vc-card-title">{cardDetails.title}</div>
 
-                        <div className="checklist-header">
+                        <div className="vc-checklist-header">
                             <div>Checklist ({selectedCount}/{checklist.length})</div>
                         </div>
 
-                        <div className="checklist-container">
+                        <div className="vc-checklist-container">
                             {checklist.map((item) => (
-                                <div key={item._id} className="checklist-item">
+                                <div key={item._id} className="vc-checklist-item">
                                     <span
-                                        className={`custom-checkbox ${item.completed ? 'checked' : ''}`}
+                                        className={`vc-custom-checkbox ${item.completed ? 'vc-checked' : ''}`}
                                     >
                                         {item.completed && (
                                             <span
@@ -77,20 +78,20 @@ const ViewCard = () => {
                                     </span>
                                     <div>{item.task}</div>
                                 </div>
-                ))}
-            </div>
+                            ))}
+                        </div>
 
-            {cardDetails.dueDate && 
-            <div className='due-date-container'>
-            <span>Due Date</span>
-            <div className='due-date'>
-                {formatDate(cardDetails.dueDate)}
-            </div>
-        </div>}
-            
-        </div>
-    </div>
-)}
+                        {cardDetails.dueDate && 
+                            <div className="vc-due-date-container">
+                                <span>Due Date</span>
+                                <div className="vc-due-date">
+                                    {formatDate(cardDetails.dueDate)}
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
