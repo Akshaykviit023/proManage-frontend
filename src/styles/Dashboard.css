@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root{
+    --toastify-toast-width: 205px;
+}
+*{
+    font-family: "Poppins", sans-serif;
+}
+
+.custom-toast {
+    background-color: #F6FFF9;
+; /* Light green color */
+    color: #333333; /* Darker text color */
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #48C1B5; /* Border color */
+    box-shadow: 0px 4px 16px 0px #100B2714;
+    text-align: center;
+  }
+  
