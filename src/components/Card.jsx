@@ -72,10 +72,8 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
     const handleCheckboxChange = async (id, completed) => {
         setLoading(true);
         try {
-            // Call the backend API to update the checklist item status
             await updateChecklistItemStatus(cardDetails._id, id, !completed);
 
-            // Update the local checklist state
             setChecklist((prevChecklist) =>
                 prevChecklist.map((item) =>
                     item._id === id ? { ...item, completed: !item.completed } : item
@@ -105,12 +103,12 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
     }
 
     const handleOptionClick = () => {
-        setShowOptions((prev) => !prev); // Toggle showOptions state
+        setShowOptions((prev) => !prev); 
     };
 
     const handleDelete = () => {
         setShowOptions(false);
-        setShowDeleteModal(true); // Open delete confirmation modal
+        setShowDeleteModal(true); 
     };
 
     const confirmDelete = async (cardId) => {
@@ -118,7 +116,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
         try {
             const response = await deleteCard(cardId); 
             console.log("Card deleted:", response);
-            setShowDeleteModal(false); // Close delete modal after deletion
+            setShowDeleteModal(false); 
         } catch (error) {
             console.error("Error deleting card:", error);
         }
@@ -128,7 +126,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
     };
     const handleEditClick = () => {
         setShowOptions(false);
-        setEditModalOpen(true); // Open edit modal on click
+        setEditModalOpen(true); 
       };
 
       const handleShareClick = (cardId) => {
@@ -273,7 +271,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
             }}>
                 {cardDetails.dueDate && <div style={{
                     padding: '0.3rem 0.5rem',
-                    backgroundColor: cardDetails.priority == 'high' ? '#CF3636' : '#DBDBDB',
+                    backgroundColor: cardDetails.category == 'done' ? '#63C05B' : cardDetails.priority == 'high' ? '#CF3636' : '#DBDBDB',
                     borderRadius: '8px',
                     color: cardDetails.priority == 'high' ? '#FFFFFF' : '#5A5A5A'
                 }}>{formatDate(cardDetails.dueDate)}</div>}
