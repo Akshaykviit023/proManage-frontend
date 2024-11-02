@@ -1,0 +1,163 @@
+/* Card.css */
+.card-container {
+    background-color: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.card-priority {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 8px;
+    font-weight: 500;
+    color: #707070;
+}
+
+.priority-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+}
+
+.options-icon {
+    cursor: pointer;
+}
+
+.options-menu {
+    position: absolute;
+    width: 120px;
+    top: 1rem;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    z-index: 10;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.options-item {
+    cursor: pointer;
+    margin: 0.5rem 0;
+}
+
+.delete-option {
+    color: #CF3636;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 0.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.checklist-header {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0.75rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow-icon-container {
+    background-color: #EEECEC;
+    border-radius: 3px;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.arrow-rotated {
+    transform: rotate(180deg);
+}
+
+.checklist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 246px;
+    border: 1px solid #E2E2E2;
+    border-radius: 12px;
+    color: #9B959F;
+    font-size: 14px;
+    padding: 0.5rem;
+}
+
+.custom-checkbox {
+    width: 14px;
+    height: 14px;
+    appearance: none;
+    border: 2px solid #E2E2E2;
+    background-color: white;
+    border-radius: 6px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-checkbox-checked {
+    background-color: #17A2B8;
+    border: none;
+    width: 18px;
+    height: 18px;
+}
+
+.checkbox-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.card-footer {
+    font-size: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.due-date {
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+}
+
+.category-button {
+    padding: 0.3rem 0.6rem;
+    background-color: #F0F0F0;
+    border-radius: 8px;
+    color: #767575;
+    font-size: 8px;
+    cursor: pointer;
+}

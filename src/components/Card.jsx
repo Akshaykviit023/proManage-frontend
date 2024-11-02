@@ -5,54 +5,18 @@ import Modal from './Modal';
 import SmallModal from './SmallModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../styles/Dashboard.css'
+import '../styles/Dashboard.css';
+import '../styles/Card.css';
 import Loader from './Loader';
 
-
 const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) => {
-    const [checklist, setChecklist] = useState(cardDetails.checklist || []); 
-
+    const [checklist, setChecklist] = useState(cardDetails.checklist || []);
     const categoryNames = ['backlog', 'to do', 'in progress', 'done'];
-    const filteredCategories = categoryNames.filter(category => category !== headName.toLowerCase()); 
+    const filteredCategories = categoryNames.filter(category => category !== headName.toLowerCase());
     const [showOptions, setShowOptions] = useState(false);
-    const [editModalOpen, setEditModalOpen] = useState(false); 
-    const [showDeleteModal, setShowDeleteModal] = useState(false); 
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [loading, setLoading] = useState(false);
-
-
-
-
-    const modalStyles = {
-        checklistItem: { display: 'flex', alignItems: 'center', margin: '0.5rem 0' },
-        checkboxContainer: {
-            width: '246px',
-            border: '1px solid #E2E2E2',
-            borderRadius: '12px',
-            color: '#9B959F',
-            fontSize: '14px',
-            padding: '0.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-        },
-        customCheckbox: {
-            width: '14px',
-            height: '14px',
-            appearance: 'none',
-            border: '2px solid #E2E2E2',
-            backgroundColor: 'white',
-            borderRadius: '6px',
-            display: 'inline-block',
-            position: 'relative',
-            cursor: 'pointer',
-        },
-        customCheckboxChecked: {
-            backgroundColor: '#17A2B8',
-            border: 'none',
-            width: '18px',
-            height: '18px',
-        },
-    };
 
     const priorityColor = (priority) => {
         switch (priority) {
@@ -63,7 +27,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
             case 'low':
                 return '#63C05B';
             default:
-                return '#E2E2E2'; 
+                return '#E2E2E2';
         }
     };
 
@@ -73,7 +37,6 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
         setLoading(true);
         try {
             await updateChecklistItemStatus(cardDetails._id, id, !completed);
-
             setChecklist((prevChecklist) =>
                 prevChecklist.map((item) =>
                     item._id === id ? { ...item, completed: !item.completed } : item
@@ -82,54 +45,52 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
         } catch (error) {
             console.error("Error updating checklist item:", error);
             alert("Failed to update checklist item.");
-        }
-        finally {
-            setLoading(false)
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleChangeCategory = async (category, cardId) => {
-        setLoading(true)
+        setLoading(true);
         try {
             const response = await changeCategory(category, cardId);
             console.log("Category changed successfully:", response);
         } catch (error) {
             console.error("Error changing category:", error.message);
             alert("Failed to change category.");
+        } finally {
+            setLoading(false);
         }
-        finally {
-            setLoading(false)
-        }
-    }
+    };
 
     const handleOptionClick = () => {
-        setShowOptions((prev) => !prev); 
+        setShowOptions((prev) => !prev);
     };
 
     const handleDelete = () => {
         setShowOptions(false);
-        setShowDeleteModal(true); 
+        setShowDeleteModal(true);
     };
 
     const confirmDelete = async (cardId) => {
         setLoading(true);
         try {
-            const response = await deleteCard(cardId); 
+            const response = await deleteCard(cardId);
             console.log("Card deleted:", response);
-            setShowDeleteModal(false); 
+            setShowDeleteModal(false);
         } catch (error) {
             console.error("Error deleting card:", error);
-        }
-        finally{
-            setLoading(false)
+        } finally {
+            setLoading(false);
         }
     };
+
     const handleEditClick = () => {
         setShowOptions(false);
-        setEditModalOpen(true); 
-      };
+        setEditModalOpen(true);
+    };
 
-      const handleShareClick = (cardId) => {
+    const handleShareClick = (cardId) => {
         setShowOptions(false);
         navigator.clipboard.writeText(`https://promanage-pink.vercel.app/cards/${cardId}`);
         toast.success("Link Copied", {
@@ -144,165 +105,78 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
             closeButton: false,
             icon: false
         });
-      };
+    };
 
     return (
-        <div style={{ backgroundColor: "white", borderRadius: '20px', padding: '1.5rem', marginBottom: '1.5rem' }}>
+        <div className="card-container">
             {loading && <Loader />}
-            <div style={{ 
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                position: 'relative'
-            }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '8px', fontWeight: 500, color: '#707070' }}>
-                    <div style={{
-                        width: '9px',
-                        height: '9px',
-                        backgroundColor: priorityColor(cardDetails.priority),
-                        borderRadius: '999px',
-                    }} />
+            <div className="card-header">
+                <div className="card-priority">
+                    <div className="priority-dot" style={{ backgroundColor: priorityColor(cardDetails.priority) }} />
                     {(cardDetails.priority).toUpperCase()} PRIORITY
                 </div>
-                <img src="optionsLogo.svg" alt="Options" onClick={handleOptionClick} style={{ cursor: 'pointer'}}/>
+                <img src="optionsLogo.svg" alt="Options" onClick={handleOptionClick} className="options-icon" />
                 {showOptions && (
-                    <div style={{
-                        position: 'absolute',
-                        width: '120px',
-                        top: '1rem',
-                        right: '0',
-                        backgroundColor: 'white',
-                        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-                        borderRadius: '12px',
-                        padding: '1rem 1.25rem',
-                        zIndex: 10,
-                        fontSize: '14px',
-                        fontWeight: 500,
-                    }}>
-                        <div style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '0.5rem'
-                        }}>
-                            <div style={{cursor: 'pointer' }} onClick={handleEditClick}>Edit</div>
-                            <div style={{cursor: 'pointer' }} onClick={() => handleShareClick(cardDetails._id)}>Share</div>
-                            <div style={{cursor: 'pointer', color: '#CF3636' }} onClick={() => handleDelete(cardDetails._id)}>Delete</div>
-                        </div>
-                        
+                    <div className="options-menu">
+                        <div className="options-item" onClick={handleEditClick}>Edit</div>
+                        <div className="options-item" onClick={() => handleShareClick(cardDetails._id)}>Share</div>
+                        <div className="options-item delete-option" onClick={() => handleDelete(cardDetails._id)}>Delete</div>
                     </div>
                 )}
             </div>
-            <div style={{
-                fontSize: '18px',
-                fontWeight: 500,
-                marginTop: '0.25rem',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-            }}>{cardDetails.title}</div>
-
-            <div style={{
-                fontSize: '14px',
-                fontWeight: 500,
-                margin: '0.75rem 0',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            }}>
+            <div className="card-title">{cardDetails.title}</div>
+            <div className="checklist-header">
                 <div>Checklist ({selectedCount}/{checklist.length})</div>
-                <div style={{
-                    backgroundColor: '#EEECEC',
-                    borderRadius: '3px',
-                    height: '24px',
-                    width: '24px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                    transform: isChecklistVisible && 'rotate(180deg)'
-                }}
-                onClick={onChecklistToggle}
+                <div
+                    className={`arrow-icon-container ${isChecklistVisible ? 'arrow-rotated' : ''}`}
+                    onClick={onChecklistToggle}
                 >
                     <img src="downArrow.svg" alt="downArrow" />
                 </div>
             </div>
             {isChecklistVisible && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                <div className="checklist-container">
                     {checklist.map((item) => (
-                        <div key={item._id} style={modalStyles.checkboxContainer}>
+                        <div key={item._id} className="checklist-item">
                             <span
-                                style={{
-                                    ...modalStyles.customCheckbox,
-                                    ...(item.completed ? modalStyles.customCheckboxChecked : {}),
-                                }}
+                                className={`custom-checkbox ${item.completed ? 'custom-checkbox-checked' : ''}`}
                                 onClick={() => handleCheckboxChange(item._id, item.completed)}
                             >
-                                {item.completed && (
-                                    <span
-                                        style={{
-                                            position: 'absolute',
-                                            top: '50%',
-                                            left: '50%',
-                                            transform: 'translate(-50%, -50%)',
-                                            width: '10px',
-                                            height: '10px',
-                                            backgroundColor: 'white',
-                                            borderRadius: '50%',
-                                        }}
-                                    />
-                                )}
+                                {item.completed && <span className="checkbox-inner" />}
                             </span>
-                            <div>{item.task}</div> 
+                            <div>{item.task}</div>
                         </div>
                     ))}
                 </div>
             )}
-
-
-            <div style={{
-                fontSize: '8px',
-                fontWeight: 500,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginTop: '1rem'
-            }}>
-                {cardDetails.dueDate && <div style={{
-                    padding: '0.3rem 0.5rem',
-                    backgroundColor: cardDetails.category == 'done' ? '#63C05B' : cardDetails.priority == 'high' ? '#CF3636' : '#DBDBDB',
-                    borderRadius: '8px',
-                    color: cardDetails.priority == 'high' ? '#FFFFFF' : '#5A5A5A'
-                }}>{formatDate(cardDetails.dueDate)}</div>}
-                
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    {filteredCategories.map((category, index) => (
-                        <div key={index} style={{
-                            padding: '0.3rem 0.6rem',
-                            backgroundColor: '#F0F0F0',
-                            borderRadius: '8px',
-                            color: '#767575',
-                            fontSize: '8px',
-                            cursor: 'pointer'
+            <div className="card-footer">
+                {cardDetails.dueDate && (
+                    <div
+                        className="due-date"
+                        style={{
+                            backgroundColor: cardDetails.category === 'done' ? '#63C05B' : cardDetails.priority === 'high' ? '#CF3636' : '#DBDBDB',
+                            color: cardDetails.priority === 'high' ? '#FFFFFF' : '#5A5A5A'
                         }}
-                        onClick={() => handleChangeCategory(category, cardDetails._id)}
-                        >
+                    >
+                        {formatDate(cardDetails.dueDate)}
+                    </div>
+                )}
+                <div>
+                    {filteredCategories.map((category, index) => (
+                        <div key={index} className="category-button" onClick={() => handleChangeCategory(category, cardDetails._id)}>
                             {category.toUpperCase()}
                         </div>
                     ))}
                 </div>
             </div>
-
             {editModalOpen && (
-        <Modal
-          show={editModalOpen}
-          onClose={() => setEditModalOpen(false)}
-          initialData={cardDetails} // Pass card details as initial data
-        />
-      )}
-
-{showDeleteModal && (
+                <Modal
+                    show={editModalOpen}
+                    onClose={() => setEditModalOpen(false)}
+                    initialData={cardDetails}
+                />
+            )}
+            {showDeleteModal && (
                 <SmallModal
                     show={showDeleteModal}
                     onClose={() => setShowDeleteModal(false)}
@@ -313,8 +187,7 @@ const Card = ({ cardDetails, headName, isChecklistVisible, onChecklistToggle }) 
                     secondaryText='Cancel'
                 />
             )}
-
-<ToastContainer />
+            <ToastContainer />
         </div>
     );
 }
