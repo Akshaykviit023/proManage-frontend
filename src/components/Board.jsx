@@ -4,16 +4,17 @@ import Dropdown from './Dropdown';
 import Category from './Category';
 import { fetchCards } from '../services/task';
 import Loader from './Loader';
+import '../styles/Board.css'; // Import the CSS file
 
 const Board = () => {
     const [userName, setUserName] = useState("");
     const [currentDate, setCurrentDate] = useState("");
     const [cards, setCards] = useState([]);
     const [filter, setFilter] = useState("This week");
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
 
     const fetchCardDetails = async (filter) => {
-        setLoading(true); 
+        setLoading(true);
         try {
             const response = await fetchCards({ filter });
             setCards(response);
@@ -22,17 +23,17 @@ const Board = () => {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
-        const name = localStorage.getItem('user'); 
+        const name = localStorage.getItem('user');
         if (name) {
-            setUserName(name); 
+            setUserName(name);
         }
         const today = new Date();
         setCurrentDate(formatDate(today));
-        fetchCardDetails(filter); // Fetch initial data based on the default filter
-    }, [filter]); // Re-fetch data whenever the filter changes
+        fetchCardDetails(filter);
+    }, [filter]);
 
     const categories = ['backlog', 'to do', 'in progress', 'done'];
 
@@ -42,40 +43,34 @@ const Board = () => {
     }, {});
 
     return (
-        <div style={{ maxWidth: "90%", height: "100vh", boxSizing: "border-box", overflow: "hidden" }}>
-            {loading && (
-                <Loader />
-            )}
+        <div className="board-container">
+            {loading && <Loader />}
 
-            <div style={{ padding: "0.25rem 1.5rem" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <h2 style={{ fontSize: "22px", fontWeight: 600 }}>
+            <div className="board-header">
+                <div className="board-welcome">
+                    <h2 className="board-welcome-text">
                         Welcome! {userName ? userName[0].toUpperCase() + userName.slice(1) : "Guest"}
                     </h2>
-                    <p style={{ color: "#707070", fontSize: "20px", fontWeight: 500 }}>
-                        {currentDate}
-                    </p>
+                    <p className="board-date">{currentDate}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <div style={{ display: "flex", gap: "1rem", alignItems: "center", fontSize: "29px", fontWeight: 500 }}>
+                <div className="board-main-header">
+                    <div className="board-title">
                         <p>Board</p>
-                        <div style={{ display: "flex", gap: "0.25rem", alignItems: "center", color: "#707070", fontSize: "14px", fontWeight: 500, cursor: "pointer" }}>
+                        <div className="board-add-people">
                             <img src="addPeopleLogo.svg" alt="noPic" />
                             <p>Add People</p>
                         </div>
                     </div>
-
-                    <div>
-                        <Dropdown setFilter={setFilter} /> {/* Pass setFilter to Dropdown */}
-                    </div>
+                    <Dropdown setFilter={setFilter} />
                 </div>
             </div>
-            <div style={{ display: "flex", overflowX: "auto", gap: "1rem", height: "77%" }}>
+
+            <div className="board-categories">
                 {categories.map(category => (
                     <Category 
                         key={category} 
-                        headName={category[0].toUpperCase() + category.slice(1)} // Capitalize first letter
+                        headName={category[0].toUpperCase() + category.slice(1)} 
                         cards={categorizedCards[category]} 
                     />
                 ))}

@@ -1,0 +1,58 @@
+.board-container {
+    max-width: 90%;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.board-header {
+    padding: 0.25rem 1.5rem;
+}
+
+.board-welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-welcome-text {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.board-date {
+    color: #707070;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.board-main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-title {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 29px;
+    font-weight: 500;
+}
+
+.board-add-people {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    color: #707070;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.board-categories {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    height: 77%;
+}
