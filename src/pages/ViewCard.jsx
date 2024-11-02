@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchPublicCard } from '../services/task';
 import { formatDate } from '../utils/formatDate';
+import ProManageLogo from '../components/ProManageLogo';
 
 const ViewCard = () => {
     const { id } = useParams();
@@ -88,19 +89,7 @@ const ViewCard = () => {
             padding: '0 2rem',
             boxSizing: 'border-box',
         }}>
-            <div style={{
-                display: 'flex',
-                marginTop: '1.5rem',
-                marginBottom: '1rem',
-                alignItems: 'center',
-                padding: '1rem 0',
-                fontSize: '16px',
-                fontWeight: 700,
-                gap: '0.75rem',
-            }}>
-                <img src="../../public/proManage_logo.svg" alt="proManage" height={24} width={24} />
-                Pro Manage
-            </div>
+            <ProManageLogo />
 
             {cardDetails && (
     <div style={{
