@@ -43,7 +43,7 @@ export const fetchCards = async ({filter}) => {
                 Authorization: `Bearer ${token}`,
               },
               params: {
-                filter: filter.toLowerCase(), // Pass the filter as a query parameter
+                filter: filter.toLowerCase(), 
             },
         });
         console.log('Cards:', response.data);

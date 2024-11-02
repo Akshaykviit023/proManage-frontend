@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getSummary } from '../services/task';
 import Loader from './Loader';
-import '../styles/Analytics.css'; // Import the CSS file
+import '../styles/Analytics.css'; 
 
 const Analytics = () => {
   const [analytics, setAnalytics] = useState({});

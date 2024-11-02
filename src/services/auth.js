@@ -10,7 +10,6 @@ export const register = async ({ name, email, password, confirmPassword }) => {
             confirmPassword,
         });
 
-        // Store the token in localStorage
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", response.data.name);
 
@@ -58,7 +57,6 @@ export const updateUser = async (personalInfo) => {
             }
         );
 
-        // Optionally update local storage if email or name has changed
         if (response.data.token) {
             localStorage.setItem("token", response.data.token);
         }
@@ -67,9 +65,9 @@ export const updateUser = async (personalInfo) => {
         }
 
         console.log('User updated successfully');
-        return response; // Return the full response for further processing
+        return response;
     } catch (error) {
-        console.error("Error updating user:", error); // Log the error for debugging
+        console.error("Error updating user:", error); 
         throw new Error(error.response?.data?.message || "An error occurred while updating user information.");
     }
 };

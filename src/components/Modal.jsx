@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { createCard, setTask, updateCard } from '../services/task';
 import Loader from './Loader';
 const Modal = ({ show, onClose, initialData }) => {
-    const [taskTitle, setTaskTitle] = useState(initialData?.title || ''); // Prefill title from initialData
+    const [taskTitle, setTaskTitle] = useState(initialData?.title || ''); 
   const [priority, setPriority] = useState(initialData?.priority || '');
   const [assignee, setAssignee] = useState(initialData?.assignee || '');
   const [checklist, setChecklist] = useState(initialData?.checklist || []);
-  const [dueDate, setDueDate] = useState(initialData?.dueDate || ''); // New state for date
-  const [users, setUsers] = useState([]); // State to store users from MongoDB
+  const [dueDate, setDueDate] = useState(initialData?.dueDate || ''); 
+  const [users, setUsers] = useState([]); 
   const [loading, setLoading] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -139,8 +139,8 @@ const Modal = ({ show, onClose, initialData }) => {
         const cardData = {
             title: taskTitle,
             priority,
-            assignee, // This is a single user ID
-            checklist, // This is an array of tasks
+            assignee, 
+            checklist, 
             dueDate
         };
 
@@ -148,10 +148,10 @@ const Modal = ({ show, onClose, initialData }) => {
 
         try {
             if (initialData) {
-                const response = await updateCard(initialData._id, cardData); // Update card using ID from initialData
+                const response = await updateCard(initialData._id, cardData); 
                 console.log(response);
             } else {
-                const response = await createCard({ cardData }); // Create new card if no initialData
+                const response = await createCard({ cardData }); 
                 console.log(response);
             }
         } catch (error) {
@@ -161,8 +161,7 @@ const Modal = ({ show, onClose, initialData }) => {
             setLoading(false)
         }
         
-        
-        // Reset form values
+
         setTaskTitle('');
         setPriority('');
         setAssignee('');
@@ -172,7 +171,6 @@ const Modal = ({ show, onClose, initialData }) => {
     };
 
     const handleUserSelect = (user) => {
-        // Add the selected user to the assignees array
         if(assignee === user._id)
             setAssignee('');
         else
@@ -356,8 +354,8 @@ const Modal = ({ show, onClose, initialData }) => {
                         onFocus={(e) => (e.target.type = 'date')} 
                         onBlur={(e) => (e.target.type = 'text')} 
                         placeholder='Select Due Date' 
-                        value={dueDate} // Set input value
-                        onChange={(e) => setDueDate(e.target.value)} // Update dueDate on change
+                        value={dueDate} 
+                        onChange={(e) => setDueDate(e.target.value)} 
                         style={{ padding: '0.5rem 0', textAlign: 'center', backgroundColor: 'transparent', border: '1px solid #E2E2E2', color: '#707070', borderRadius: '8px', width: '162px', fontSize: '16px', fontWeight: 500 }} 
                         />
                             <div style={{ display: 'flex', gap: '0.75rem'}}>

@@ -24,9 +24,9 @@ const PersonalInfo = () => {
   };
 
   const updateInfo = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    setErrorMessage(""); // Reset error message
-    setSuccessMessage(""); // Reset success message
+    e.preventDefault(); 
+    setErrorMessage(""); 
+    setSuccessMessage(""); 
     setLoading(true)
     try {
       const response = await updateUser(userData);
@@ -60,7 +60,7 @@ const PersonalInfo = () => {
         />
         <InputField
           name="updatedEmail"
-          value={userData.updatedEmail} // Fixed to match the state
+          value={userData.updatedEmail} 
           onChange={handleChange}
           placeholder="Update Email"
           inputType="email"
@@ -68,7 +68,7 @@ const PersonalInfo = () => {
         />
         <InputField
           name="oldPassword"
-          value={userData.oldPassword} // Fixed to match the state
+          value={userData.oldPassword} 
           onChange={handleChange}
           placeholder="Old Password"
           inputType="password"
@@ -76,7 +76,7 @@ const PersonalInfo = () => {
         />
         <InputField
           name="newPassword"
-          value={userData.newPassword} // Fixed to match the state
+          value={userData.newPassword} 
           onChange={handleChange}
           placeholder="New Password"
           inputType="password"
@@ -88,7 +88,7 @@ const PersonalInfo = () => {
           color="white"
           borderRadius="55px"
           width="493px"
-          action={() => updateInfo()} // Action is now called within the form submission
+          action={() => updateInfo()} 
         />
       </form>
 

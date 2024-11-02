@@ -4,7 +4,7 @@ import Dropdown from './Dropdown';
 import Category from './Category';
 import { fetchCards } from '../services/task';
 import Loader from './Loader';
-import '../styles/Board.css'; // Import the CSS file
+import '../styles/Board.css'; 
 
 const Board = () => {
     const [userName, setUserName] = useState("");

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ConfirmModal from './ConfirmModal';
 import { useNavigate } from "react-router-dom";
-import '../styles/Navbar.css'; // Import the CSS file
+import '../styles/Navbar.css'; 
 
 const Navbar = ({ setActiveComponent, activeComponent }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);

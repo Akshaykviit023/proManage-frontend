@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import Card from './Card';
-import '../styles/Category.css'; // Import the CSS file
+import '../styles/Category.css'; 
 
 const Category = ({ headName, cards }) => {
     const [showModal, setShowModal] = useState(false);
