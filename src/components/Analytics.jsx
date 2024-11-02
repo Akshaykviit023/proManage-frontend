@@ -1,48 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { getSummary } from '../services/task';
 import Loader from './Loader';
+import '../styles/Analytics.css'; // Import the CSS file
 
 const Analytics = () => {
   const [analytics, setAnalytics] = useState({});
-  const [loading, setLoading] = useState(true); 
-
-  const style = {
-    analyticsContainer: {
-      backgroundColor: '#F9FCFF',
-      width: '475px',
-      borderRadius: '12px',
-      fontSize: '18px',
-      fontWeight: 400,
-      marginTop: '2rem',
-    },
-    dot: {
-      width: '12px',
-      height: '12px',
-      borderRadius: '999px',
-      backgroundColor: '#90C4CC',
-    },
-    textContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      margin: '2rem',
-    },
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSummary = async () => {
-      setLoading(true); 
+      setLoading(true);
       try {
-        
         const response = await getSummary();
         console.log(response);
         setAnalytics(response);
       } catch (error) {
         console.error("Failed to fetch analytics summary:", error);
-      }
-      finally {
+      } finally {
         setLoading(false);
-    }
+      }
     };
 
     fetchSummary();
@@ -63,30 +39,28 @@ const Analytics = () => {
   ];
 
   return (
-    <div style={{ padding: '1rem 2.5rem' }}>
+    <div className="analytics-container">
       {loading && <Loader />}
-      <h1 style={{ fontSize: '22px', fontWeight: 600 }}>Analytics</h1>
+      <h1 className="analytics-title">Analytics</h1>
       {analytics && analytics.statusCounts && (
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          {/* Status Counts */}
-          <div style={style.analyticsContainer}>
+        <div className="analytics-content">
+          <div className="analytics-section">
             {statusData.map(({ label, key }) => (
-              <div style={style.textContainer} key={key}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={style.dot} />
+              <div className="analytics-text-container" key={key}>
+                <div className="analytics-label">
+                  <div className="analytics-dot" />
                   {label}
                 </div>
                 <div>{analytics.statusCounts[key] || 0}</div>
               </div>
             ))}
           </div>
-          
-          {/* Priority Counts */}
-          <div style={style.analyticsContainer}>
+
+          <div className="analytics-section">
             {priorityData.map(({ label, key }) => (
-              <div style={style.textContainer} key={key}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={style.dot} />
+              <div className="analytics-text-container" key={key}>
+                <div className="analytics-label">
+                  <div className="analytics-dot" />
                   {label}
                 </div>
                 <div>{key === 'totalDueDateTasks' ? analytics.totalDueDateTasks || 0 : analytics.priorityCounts[key] || 0}</div>

@@ -1,0 +1,43 @@
+.analytics-container {
+    padding: 1rem 2.5rem;
+  }
+  
+  .analytics-title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  
+  .analytics-content {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .analytics-section {
+    background-color: #F9FCFF;
+    width: 475px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 2rem;
+  }
+  
+  .analytics-text-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem;
+  }
+  
+  .analytics-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .analytics-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background-color: #90C4CC;
+  }
+  
