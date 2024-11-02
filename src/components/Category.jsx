@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import Card from './Card';
+import '../styles/Category.css'; // Import the CSS file
 
 const Category = ({ headName, cards }) => {
     const [showModal, setShowModal] = useState(false);
@@ -15,37 +16,46 @@ const Category = ({ headName, cards }) => {
     };
 
     const handleCollapseClick = () => {
-        setChecklistVisibility(checklistVisibility.map(() => false)); // Close all checklists
+        setChecklistVisibility(checklistVisibility.map(() => false)); 
     };
 
     const handleChecklistToggle = (index) => {
         setChecklistVisibility((prev) => {
             const newVisibility = [...prev];
-            newVisibility[index] = !newVisibility[index]; // Toggle the specific card's checklist
+            newVisibility[index] = !newVisibility[index];
             return newVisibility;
         });
     };
 
     return (
-        <div style={{ minWidth: "312px", height: "97%", backgroundColor: "#EEF2F5", borderRadius: "10px", padding: "0.5rem 1.5rem" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <p style={{ fontSize: "16px", fontWeight: 500 }}>{headName}</p>
-                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    {headName === "To do" && <img src="addIcon.svg" alt="addIcon" style={styles.actionBtn} onClick={handleShowModal} />}
-                    <img src="collapseIcon.svg" alt="collapse icon" style={styles.actionBtn} onClick={handleCollapseClick} />
+        <div className="category-container">
+            <div className="category-header">
+                <p className="category-title">{headName}</p>
+                <div className="category-actions">
+                    {headName === "To do" && (
+                        <img 
+                            src="addIcon.svg" 
+                            alt="addIcon" 
+                            className="action-btn" 
+                            onClick={handleShowModal} 
+                        />
+                    )}
+                    <img 
+                        src="collapseIcon.svg" 
+                        alt="collapse icon" 
+                        className="action-btn" 
+                        onClick={handleCollapseClick} 
+                    />
                 </div>
             </div>
-            <div style={{
-                overflow: 'scroll',
-                maxHeight: '90%'
-            }}>
+            <div className="category-cards">
                 {cards.map((card, index) => (
                     <Card 
                         key={card._id} 
                         cardDetails={card} 
                         headName={headName} 
-                        isChecklistVisible={checklistVisibility[index]} // Pass checklist visibility state
-                        onChecklistToggle={() => handleChecklistToggle(index)} // Pass toggle function
+                        isChecklistVisible={checklistVisibility[index]}
+                        onChecklistToggle={() => handleChecklistToggle(index)} 
                     />
                 ))}
             </div>
@@ -53,12 +63,6 @@ const Category = ({ headName, cards }) => {
             <Modal show={showModal} onClose={handleCloseModal} />
         </div>
     );
-}
-
-const styles = {
-    actionBtn: {
-        cursor: 'pointer',
-    }
-}
+};
 
 export default Category;

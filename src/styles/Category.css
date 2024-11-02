@@ -1,0 +1,33 @@
+.category-container {
+    min-width: 312px;
+    height: 97%;
+    background-color: #EEF2F5;
+    border-radius: 10px;
+    padding: 0.5rem 1.5rem;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.category-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.action-btn {
+    cursor: pointer;
+}
+
+.category-cards {
+    overflow-y: scroll;
+    max-height: 90%;
+}
