@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createCard, setTask, updateCard } from '../services/task';
 import Loader from './Loader';
-import './Modal.css'; // Import the CSS file
+import '../styles/Modal.css'; // Import the CSS file
 
 const Modal = ({ show, onClose, initialData }) => {
   const [taskTitle, setTaskTitle] = useState(initialData?.title || ''); 
