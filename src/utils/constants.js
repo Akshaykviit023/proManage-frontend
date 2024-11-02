@@ -1,1 +1,1 @@
-export const SERVER_URL = "http://localhost:3000/api/v1"
+export const SERVER_URL = "https://promanage-backend-9i49.onrender.com/api/v1"
